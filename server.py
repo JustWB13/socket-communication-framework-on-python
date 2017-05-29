@@ -20,7 +20,6 @@ def Tcp(sock,addr):
     while data.decode('utf-8')!='exit':
         print(data.decode('utf-8'))
         data=sock.recv(1024)
-        time.sleep(1)
     sock.close()
     print("connection end")
 
