@@ -8,8 +8,8 @@ s.connect(('192.168.2.108',1027))
 
 print(s.recv(1024).decode('utf-8'))
 while True:
-    data=raw_input()
-    s.send(data)
+    data=input()
+    s.send(data.encode())
     if data=='exit':
         break
 s.close()
