@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from multiprocessing import Process
 import os
 import socket
 import time
@@ -21,9 +22,10 @@ def Tcp(sock,addr):
         print(data.decode('utf-8'))
         data=sock.recv(1024)
     sock.close()
-    print("connection end")
+    print("connection end(%s:%s)"%addr)
 
 
 while True:
     sock,addr=s.accept()
-    Tcp(sock,addr)
+    p=Process(target=Tcp,args=(sock,addr))
+    p.start()
