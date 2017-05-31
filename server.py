@@ -21,8 +21,10 @@ def Tcp(sock,addr):
     while True:
         data=sock.recv(1024)
         if data.decode('utf-8')=='exit':break
-        if data.decode('utf-8')=='ask':out()
-        sen=Process(target=udpsend,args=(data.decode('utf-8'),addr[0]))
+        if data.decode('utf-8')=='ask':
+            out(addr[0])
+            continue
+        sen=Process(target=udpsend,args=('%s:%s'%(usrname.decode('utf-8'),data.decode('utf-8')),addr[0]))
         sen.start()
     sock.close()
     print("connection end(%s:%s)"%addr)
@@ -30,12 +32,13 @@ def Tcp(sock,addr):
 def udpsend(data,address):
     for con in fileinput.input('/sor/usr.list'):
         adr=str(con)
-        if adr==address:continue
-        usend.sendto(data.encode(),(adr,1027))
+        if adr!=address:
+            usend.sendto(data.encode(),(adr,1027))
     return
 
-def out():
-    for con in fileinput.input('/sor/usr.list'):print(con)
+def out(address):
+    for con in fileinput.input('/sor/usr.list'):
+        usend.sendto(con.encode(),(address,1027))
 
 
 
