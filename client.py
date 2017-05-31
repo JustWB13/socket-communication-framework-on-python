@@ -15,7 +15,6 @@ temp=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 def udpget():
     temp.bind((myaddr,1027))
     while True:
-        if(a==1):break
         data,addr=temp.recvfrom(1024)
         print(data.decode('utf-8'))
 
