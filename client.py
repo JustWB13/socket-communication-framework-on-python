@@ -20,10 +20,11 @@ def udpget():
 
 
 
-print(s.recv(1024).decode('utf-8'))
+myname=input(s.recv(1024).decode('utf-8'))
 myaddr=s.recv(1024).decode('utf-8')
 rec=Process(target=udpget,args=())
 rec.start()
+s.send(myname.encode())
 while True:
     data=input()
     s.send(data.encode())

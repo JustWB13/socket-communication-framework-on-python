@@ -24,7 +24,7 @@ def Tcp(sock,addr):
         if data.decode('utf-8')=='ask':
             out(addr[0])
             continue
-        sen=Process(target=udpsend,args=('%s:%s'%(usrname.decode('utf-8'),data.decode('utf-8')),addr[0]))
+        sen=Process(target=udpsend,args=('%s:%s'%(usrname.decode('utf-8'),data.decode('utf-8')),'%s\n'%addr[0]))
         sen.start()
     sock.close()
     print("connection end(%s:%s)"%addr)
