@@ -20,12 +20,16 @@ def Tcp(sock,addr):
     usrname=sock.recv(1024)
     while True:
         data=sock.recv(1024)
-        if data.decode('utf-8')=='exit':break
+        if data.decode('utf-8')=='exit':
+            exi=Process(target=udpsend,args=('%s exit'%usrname.decode('utf-8'),'%s\n'%addr[0]))
+            exi.start()
+            break
         if data.decode('utf-8')=='ask':
             out(addr[0])
             continue
         sen=Process(target=udpsend,args=('%s:%s'%(usrname.decode('utf-8'),data.decode('utf-8')),'%s\n'%addr[0]))
         sen.start()
+        print('%s:%s(from %s)'%(usrname.decode('utf-8'),data.decode('utf-8'),addr[0]))
     sock.close()
     print("connection end(%s:%s)"%addr)
 

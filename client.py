@@ -20,6 +20,7 @@ def udpget():
 
 
 
+print('if you want to exit,please enter exit and Ctrl-c')
 myname=input(s.recv(1024).decode('utf-8'))
 myaddr=s.recv(1024).decode('utf-8')
 rec=Process(target=udpget,args=())
